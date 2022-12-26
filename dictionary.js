@@ -827,7 +827,6 @@ const dictionary=[
     "cicoz",
     "cidal",
     "cidar",
-    "cidi",
     "ciğer",
     "cihan",
     "cihar",
