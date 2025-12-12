@@ -11,11 +11,13 @@ startInteraction()
 
 function startInteraction() {
   document.addEventListener("click", handleMouseClick)
+  document.addEventListener("touchend", handleMouseClick)
   document.addEventListener("keydown", handleKeyPress)
 }
 
 function stopInteraction() {
   document.removeEventListener("click", handleMouseClick)
+  document.removeEventListener("touchend", handleMouseClick)
   document.removeEventListener("keydown", handleKeyPress)
 }
 
@@ -41,6 +43,10 @@ function resetGame() {
   document.addEventListener("keydown", handleKeyPress)
 }
 function handleMouseClick(e) {
+  if (e.type === "touchend") {
+    e.preventDefault()
+  }
+  
   if (e.target.matches("[data-key]")) {
     pressKey(e.target.dataset.key)
     return
