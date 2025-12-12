@@ -1,9 +1,12 @@
-/* ========================================
-   BASE STYLES
-   ======================================== */
+/* ==========================================
+   WORDLE TÜRKÇE - TEMIZ VE OPTİMİZE CSS
+   ========================================== */
+
 *, *::after, *::before {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -13,14 +16,14 @@ body {
   height: 100vh;
   height: 100dvh;
   margin: 0;
-  padding: 0;
+  padding: 1em;
   font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
   overflow: hidden;
 }
 
-/* ========================================
-   GUESS GRID
-   ======================================== */
+/* ==========================================
+   GUESS GRID - ORTA ALAN
+   ========================================== */
 .guess-grid {
   display: grid;
   justify-content: center;
@@ -76,9 +79,9 @@ body {
   transform: rotateX(90deg);
 }
 
-/* ========================================
-   KEYBOARD
-   ======================================== */
+/* ==========================================
+   KLAVYE - ALT ALAN
+   ========================================== */
 .keyboard {
   display: grid;
   grid-template-columns: repeat(22, minmax(auto, 1.12em));
@@ -141,9 +144,9 @@ body {
   grid-column: span 1;
 }
 
-/* ========================================
-   ALERTS
-   ======================================== */
+/* ==========================================
+   ALERT MESAJLARI
+   ========================================== */
 .alert-container {
   position: fixed;
   top: 10vh;
@@ -175,9 +178,9 @@ body {
   opacity: 0;
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
+/* ==========================================
+   ANİMASYONLAR
+   ========================================== */
 @keyframes shake {
   10% { transform: translateX(-5%); }
   30% { transform: translateX(5%); }
@@ -196,120 +199,68 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* ========================================
-   MOBILE & RESPONSIVE (All devices)
-   ======================================== */
+/* ==========================================
+   MOBİL RESPONSIVE - TEK BREAKPOINT
+   ========================================== */
 @media (max-width: 768px) {
   body {
-    padding: 0.5em 0.3em;
-    font-size: clamp(0.6rem, 2.2vmin, 1.2rem);
+    padding: 0.5em;
+    font-size: clamp(0.6rem, 2vmin, 1rem);
   }
 
   .guess-grid {
-    grid-template-columns: repeat(5, 14vw);
-    grid-template-rows: repeat(6, 14vw);
-    gap: 1vw;
-    margin-bottom: 0.8em;
+    grid-template-columns: repeat(5, min(62px, 15vw));
+    grid-template-rows: repeat(6, min(62px, 15vw));
+    gap: min(5px, 1vw);
+    margin-bottom: 1em;
   }
 
   .tile {
-    font-size: clamp(1.4em, 4vw, 2em);
+    font-size: clamp(1.3em, 3.8vw, 2em);
   }
 
   .keyboard {
     grid-template-columns: repeat(22, minmax(auto, 1fr));
-    grid-auto-rows: 3em;
-    gap: 0.25em;
+    grid-auto-rows: min(58px, 3em);
+    gap: min(6px, 0.25em);
     width: 100%;
-    padding: 0 0.3em;
   }
 
   .key {
-    font-size: clamp(0.7em, 2.3vw, 1em);
+    font-size: clamp(0.7em, 2.2vw, 0.9em);
   }
 
   .key > svg {
-    width: 1.3em;
-    height: 1.3em;
+    width: 1.2em;
+    height: 1.2em;
+  }
+
+  .alert-container {
+    top: 5vh;
   }
 }
 
-@media (max-width: 480px) {
+/* ==========================================
+   LANDSCAPE MOD (Yatay Ekran)
+   ========================================== */
+@media (max-height: 600px) and (orientation: landscape) {
   body {
     padding: 0.3em;
-    font-size: clamp(0.55rem, 2vmin, 1rem);
   }
 
   .guess-grid {
-    grid-template-columns: repeat(5, 15vw);
-    grid-template-rows: repeat(6, 15vw);
-    gap: 1vw;
+    grid-template-columns: repeat(5, 7.5vh);
+    grid-template-rows: repeat(6, 7.5vh);
+    gap: 0.5vh;
     margin-bottom: 0.5em;
   }
 
   .tile {
-    font-size: clamp(1.3em, 3.8vw, 1.9em);
+    font-size: clamp(1em, 2.5vh, 1.5em);
   }
 
   .keyboard {
-    grid-auto-rows: 2.8em;
-    gap: 0.22em;
-    padding: 0 0.25em;
-  }
-
-  .key {
-    font-size: clamp(0.68em, 2.2vw, 0.9em);
-  }
-}
-
-@media (max-width: 360px) {
-  body {
-    padding: 0.25em;
-  }
-
-  .guess-grid {
-    grid-template-columns: repeat(5, 16vw);
-    grid-template-rows: repeat(6, 16vw);
-    gap: 0.9vw;
-    margin-bottom: 0.4em;
-  }
-
-  .tile {
-    font-size: clamp(1.2em, 3.5vw, 1.8em);
-  }
-
-  .keyboard {
-    grid-auto-rows: 2.6em;
-    gap: 0.2em;
-    padding: 0 0.2em;
-  }
-
-  .key {
-    font-size: clamp(0.65em, 2vw, 0.85em);
-  }
-}
-
-/* ========================================
-   LANDSCAPE MODE (Mobile)
-   ======================================== */
-@media (max-height: 600px) and (orientation: landscape) {
-  body {
-    padding: 0.2em;
-  }
-
-  .guess-grid {
-    grid-template-columns: repeat(5, 8vh);
-    grid-template-rows: repeat(6, 8vh);
-    gap: 0.5vh;
-    margin-bottom: 0.3em;
-  }
-
-  .tile {
-    font-size: clamp(1em, 2.5vh, 1.4em);
-  }
-
-  .keyboard {
-    grid-auto-rows: 2.3em;
+    grid-auto-rows: 2.5em;
     gap: 0.2em;
   }
 
@@ -322,22 +273,12 @@ body {
   }
 }
 
-/* ========================================
-   TOUCH DEVICE OPTIMIZATIONS
-   ======================================== */
-@media (hover: none) and (pointer: coarse) {
-  .key {
-    min-height: 44px;
-  }
-}
-
-/* ========================================
-   UTILITY CLASSES
-   ======================================== */
+/* ==========================================
+   DOKUNMATIK CİHAZ OPTİMİZASYONU
+   ========================================== */
 * {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  user-select: none;
 }
