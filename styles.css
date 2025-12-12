@@ -206,3 +206,91 @@
   .alert.hide {
     opacity: 0;
   }
+  
+  .space {
+    grid-column: span 1;
+  }
+  
+  /* Mobile Responsive Design */
+  @media (max-width: 768px) {
+    body {
+      padding: 0.5em;
+      font-size: clamp(.4rem, 2vmin, 1rem);
+    }
+  
+    .guess-grid {
+      grid-template-columns: repeat(5, 3em);
+      grid-template-rows: repeat(6, 3em);
+      gap: .2em;
+      margin-bottom: 0.5em;
+    }
+  
+    .tile {
+      font-size: 1.5em;
+    }
+  
+    .keyboard {
+      grid-template-columns: repeat(22, minmax(auto, 1em));
+      grid-auto-rows: 2.5em;
+      gap: .2em;
+    }
+  
+    .key {
+      font-size: 0.85em;
+      border-radius: .2em;
+    }
+  
+    .key > svg {
+      width: 1.5em;
+      height: 1.5em;
+    }
+  
+    .alert-container {
+      top: 5vh;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+      padding: 0.25em;
+      font-size: clamp(.35rem, 1.8vmin, 0.9rem);
+    }
+  
+    .guess-grid {
+      grid-template-columns: repeat(5, 2.5em);
+      grid-template-rows: repeat(6, 2.5em);
+      gap: .15em;
+      margin-bottom: 0.5em;
+    }
+  
+    .tile {
+      font-size: 1.2em;
+    }
+  
+    .keyboard {
+      grid-template-columns: repeat(22, minmax(auto, 0.9em));
+      grid-auto-rows: 2.2em;
+      gap: .15em;
+    }
+  
+    .key {
+      font-size: 0.75em;
+      border-radius: .15em;
+    }
+  
+    .key > svg {
+      width: 1.3em;
+      height: 1.3em;
+    }
+  
+    .alert {
+      padding: .5em;
+      font-size: 0.9em;
+    }
+  }
+  
+  /* Prevent text selection on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
