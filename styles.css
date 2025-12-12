@@ -253,44 +253,44 @@
   @media (max-width: 480px) {
     body {
       padding: 0.3em;
-      font-size: clamp(.4rem, 2vmin, 1rem);
+      font-size: clamp(.5rem, 2.2vmin, 1.1rem);
     }
   
     .guess-grid {
-      grid-template-columns: repeat(5, 13vw);
-      grid-template-rows: repeat(6, 13vw);
-      gap: 1vw;
+      grid-template-columns: repeat(5, 16vw);
+      grid-template-rows: repeat(6, 16vw);
+      gap: 1.2vw;
       margin-bottom: 1em;
       max-width: 95vw;
     }
   
     .tile {
-      font-size: clamp(1.2em, 3.5vw, 2em);
-      border: .03em solid hsl(240, 2%, 23%);
+      font-size: clamp(1.5em, 4vw, 2.2em);
+      border: .04em solid hsl(240, 2%, 23%);
     }
   
     .keyboard {
       grid-template-columns: repeat(22, minmax(auto, 1fr));
-      grid-auto-rows: 2.5em;
-      gap: .18em;
-      width: 95vw;
+      grid-auto-rows: 2.8em;
+      gap: .2em;
+      width: 96vw;
       max-width: 500px;
     }
   
     .key {
-      font-size: clamp(0.6em, 2vw, 0.85em);
-      border-radius: .15em;
-      padding: 0 .1em;
+      font-size: clamp(0.65em, 2.2vw, 0.9em);
+      border-radius: .18em;
+      padding: 0 .15em;
     }
   
     .key > svg {
-      width: 1.2em;
-      height: 1.2em;
+      width: 1.3em;
+      height: 1.3em;
     }
   
     .alert {
-      padding: .5em .7em;
-      font-size: clamp(0.8em, 2.5vw, 1em);
+      padding: .6em .8em;
+      font-size: clamp(0.85em, 2.8vw, 1.1em);
     }
     
     .alert-container {
@@ -303,28 +303,28 @@
   @media (max-width: 360px) {
     body {
       padding: 0.2em;
-      font-size: clamp(.35rem, 1.8vmin, 0.9rem);
+      font-size: clamp(.4rem, 2vmin, 1rem);
     }
   
     .guess-grid {
-      grid-template-columns: repeat(5, 12vw);
-      grid-template-rows: repeat(6, 12vw);
-      gap: 0.8vw;
+      grid-template-columns: repeat(5, 15vw);
+      grid-template-rows: repeat(6, 15vw);
+      gap: 1vw;
       margin-bottom: 0.8em;
     }
   
     .tile {
-      font-size: clamp(1em, 3vw, 1.8em);
+      font-size: clamp(1.2em, 3.5vw, 2em);
     }
   
     .keyboard {
-      grid-auto-rows: 2.2em;
-      gap: .15em;
+      grid-auto-rows: 2.5em;
+      gap: .18em;
       width: 98vw;
     }
   
     .key {
-      font-size: clamp(0.55em, 1.8vw, 0.75em);
+      font-size: clamp(0.6em, 2vw, 0.8em);
     }
   }
   
