@@ -10,11 +10,11 @@ body {
   background-color: hsl(240, 3%, 7%);
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0;
-  padding: 0.5em;
+  padding: 0;
   font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /* ========================================
@@ -24,13 +24,12 @@ body {
   display: grid;
   justify-content: center;
   align-content: center;
-  flex-grow: 0;
+  flex-shrink: 0;
   grid-template-columns: repeat(5, min(62px, 18vw));
   grid-template-rows: repeat(6, min(62px, 18vw));
   gap: 5px;
-  margin-bottom: 0.5em;
-  padding: 10px;
-  max-height: 60vh;
+  margin: 1vh 0;
+  padding: 5px;
 }
 
 .tile {
@@ -86,6 +85,8 @@ body {
   grid-auto-rows: 3em;
   gap: 0.25em;
   justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 1vh;
 }
 
 .key {
@@ -202,85 +203,84 @@ body {
    ======================================== */
 @media (max-width: 768px) {
   body {
-    padding: 0.3em;
     font-size: clamp(0.5rem, 2vmin, 1rem);
+    justify-content: space-between;
   }
 
   .guess-grid {
-    grid-template-columns: repeat(5, min(55px, 14vw));
-    grid-template-rows: repeat(6, min(55px, 14vw));
-    gap: 4px;
-    margin-bottom: 0.3em;
-    padding: 5px;
-    max-height: 55vh;
+    grid-template-columns: repeat(5, calc((100vw - 40px) / 5.5));
+    grid-template-rows: repeat(6, calc((100vw - 40px) / 5.5));
+    gap: calc((100vw - 40px) / 60);
+    margin: 1vh auto;
+    padding: 0;
+    max-height: 54vh;
   }
 
   .tile {
-    font-size: clamp(1.3em, 4vw, 1.8em);
+    font-size: clamp(1.2em, 3.5vw, 1.8em);
     border-width: 0.04em;
   }
 
   .keyboard {
     grid-template-columns: repeat(22, minmax(auto, 1fr));
-    grid-auto-rows: min(50px, 10vw);
-    gap: 5px;
-    max-width: 100%;
-    padding: 0 6px;
+    grid-auto-rows: calc((100vh - 54vh - 10vh) / 3.3);
+    gap: 4px;
+    width: 100%;
+    max-width: 100vw;
+    padding: 0 4px;
+    margin-bottom: 0.5vh;
   }
 
   .key {
-    font-size: clamp(0.7em, 2.2vw, 0.9em);
-    border-radius: 4px;
+    font-size: clamp(0.65em, 2vw, 0.85em);
+    border-radius: 3px;
   }
 
   .key > svg {
-    width: 1.1em;
-    height: 1.1em;
+    width: 1em;
+    height: 1em;
   }
 
   .alert-container {
-    top: 8vh;
+    top: 5vh;
   }
 
   .alert {
-    font-size: clamp(0.8em, 2.3vw, 0.95em);
-    padding: 0.6em 0.9em;
+    font-size: clamp(0.75em, 2.2vw, 0.9em);
+    padding: 0.5em 0.8em;
   }
 }
 
 @media (max-width: 480px) {
   .guess-grid {
-    grid-template-columns: repeat(5, min(52px, 13.5vw));
-    grid-template-rows: repeat(6, min(52px, 13.5vw));
-    gap: 4px;
+    grid-template-columns: repeat(5, calc((100vw - 35px) / 5.5));
+    grid-template-rows: repeat(6, calc((100vw - 35px) / 5.5));
+    gap: calc((100vw - 35px) / 65);
   }
 
   .keyboard {
-    grid-auto-rows: min(48px, 9.5vw);
-    gap: 4px;
+    grid-auto-rows: calc((100vh - 52vh - 8vh) / 3.3);
+    gap: 3px;
+    padding: 0 3px;
   }
 }
 
 @media (max-width: 360px) {
-  body {
-    padding: 0.2em;
-  }
-
   .guess-grid {
-    grid-template-columns: repeat(5, min(50px, 13vw));
-    grid-template-rows: repeat(6, min(50px, 13vw));
-    gap: 3px;
-    padding: 3px;
+    grid-template-columns: repeat(5, calc((100vw - 30px) / 5.5));
+    grid-template-rows: repeat(6, calc((100vw - 30px) / 5.5));
+    gap: calc((100vw - 30px) / 70);
+    max-height: 52vh;
   }
 
   .keyboard {
-    grid-auto-rows: min(45px, 9vw);
-    gap: 3px;
-    padding: 0 3px;
+    grid-auto-rows: calc((100vh - 52vh - 8vh) / 3.4);
+    gap: 2px;
+    padding: 0 2px;
   }
 
   .key {
-    font-size: clamp(0.65em, 2vw, 0.85em);
+    font-size: clamp(0.6em, 1.9vw, 0.8em);
   }
 }
 
@@ -289,31 +289,34 @@ body {
    ======================================== */
 @media (max-height: 600px) and (orientation: landscape) {
   body {
-    padding: 0.3em;
+    justify-content: space-between;
   }
 
   .guess-grid {
-    grid-template-columns: repeat(5, 8vh);
-    grid-template-rows: repeat(6, 8vh);
-    gap: 0.5vh;
-    margin-bottom: 0.5em;
+    grid-template-columns: repeat(5, 7vh);
+    grid-template-rows: repeat(6, 7vh);
+    gap: 0.4vh;
+    margin: 0.5vh auto;
+    max-height: 60vh;
   }
 
   .tile {
-    font-size: clamp(1em, 2.5vh, 1.5em);
+    font-size: clamp(0.9em, 2vh, 1.3em);
   }
 
   .keyboard {
-    grid-auto-rows: 2.5em;
-    gap: 0.15em;
+    grid-auto-rows: calc((100vh - 60vh - 3vh) / 3.5);
+    gap: 0.3vh;
+    margin-bottom: 0.5vh;
+    padding: 0 2px;
   }
 
   .key {
-    font-size: clamp(0.6em, 1.8vw, 0.8em);
+    font-size: clamp(0.55em, 1.5vw, 0.75em);
   }
 
   .alert-container {
-    top: 2vh;
+    top: 1vh;
   }
 }
 
