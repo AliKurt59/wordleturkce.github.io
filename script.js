@@ -22,10 +22,9 @@ function stopInteraction() {
 }
 
 function resetGame() {
-  // Seçilen yeni kelimeyi atayın
   targetWord = dictionary[Math.floor(Math.random() * dictionary.length)]
+  console.log(targetWord)
 
-  // Tüm tuşları ve tahtaları sıfırlayın
   const keys = keyboard.querySelectorAll(".key")
   keys.forEach((key) => {
     key.classList.remove("correct", "wrong", "wrong-location")
@@ -34,13 +33,12 @@ function resetGame() {
 
   const tiles = guessGrid.querySelectorAll(".tile")
   tiles.forEach((tile) => {
+    tile.textContent = ""
     tile.removeAttribute("data-letter")
     tile.removeAttribute("data-state")
   })
-  location.reload()
-  // Kullanıcının tuşları tıklama ve harfleri giriş yapmasına izin verin
-  guessGrid.addEventListener("click", handleMouseClick)
-  document.addEventListener("keydown", handleKeyPress)
+
+  startInteraction()
 }
 function handleMouseClick(e) {
   if (e.type === "touchend") {
@@ -191,26 +189,30 @@ function shakeTiles(tiles) {
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord) {
-    showAlert("Tebrikler,Kazandınız. Yeniden başlatmak için Enter'a basınız.", null)
+    showAlert("Tebrikler, Kazandınız! Yeniden başlatmak için Enter'a basın.", null)
     danceTiles(tiles)
     stopInteraction()
-    document.addEventListener("keydown", (e) => {
+    const handleRestart = (e) => {
       if (e.key === "Enter") {
+        document.removeEventListener("keydown", handleRestart)
         resetGame()
       }
-    })
+    }
+    document.addEventListener("keydown", handleRestart)
     return
   }
 
   const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])")
   if (remainingTiles.length === 0) {
-    showAlert(`Kaybettiniz. Doğru cevap: ${targetWord.toUpperCase()}. Yeniden başlatmak için Enter'a basınız.`, null)
+    showAlert(`Kaybettiniz! Doğru cevap: ${targetWord.toUpperCase()}. Yeniden başlatmak için Enter'a basın.`, null)
     stopInteraction()
-    document.addEventListener("keydown", (e) => {
+    const handleRestart = (e) => {
       if (e.key === "Enter") {
+        document.removeEventListener("keydown", handleRestart)
         resetGame()
       }
-    })
+    }
+    document.addEventListener("keydown", handleRestart)
   }
 }
 
