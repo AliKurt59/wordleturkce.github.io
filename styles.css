@@ -212,37 +212,37 @@
   }
   
   /* Mobile Responsive Design */
-  @media (max-width: 768px) {
+  @media (max-width: 768px) and (min-width: 481px) {
     body {
       padding: 0.5em;
-      font-size: clamp(.4rem, 2vmin, 1rem);
+      font-size: clamp(.45rem, 2.2vmin, 1.1rem);
     }
   
     .guess-grid {
-      grid-template-columns: repeat(5, 3em);
-      grid-template-rows: repeat(6, 3em);
-      gap: .2em;
-      margin-bottom: 0.5em;
+      grid-template-columns: repeat(5, 3.5em);
+      grid-template-rows: repeat(6, 3.5em);
+      gap: .25em;
+      margin-bottom: 0.8em;
     }
   
     .tile {
-      font-size: 1.5em;
+      font-size: 1.8em;
     }
   
     .keyboard {
-      grid-template-columns: repeat(22, minmax(auto, 1em));
-      grid-auto-rows: 2.5em;
-      gap: .2em;
+      grid-template-columns: repeat(22, minmax(auto, 1.05em));
+      grid-auto-rows: 2.8em;
+      gap: .22em;
     }
   
     .key {
-      font-size: 0.85em;
+      font-size: 0.9em;
       border-radius: .2em;
     }
   
     .key > svg {
-      width: 1.5em;
-      height: 1.5em;
+      width: 1.6em;
+      height: 1.6em;
     }
   
     .alert-container {
@@ -252,10 +252,88 @@
   
   @media (max-width: 480px) {
     body {
-      padding: 0.25em;
+      padding: 0.3em;
+      font-size: clamp(.4rem, 2vmin, 1rem);
+    }
+  
+    .guess-grid {
+      grid-template-columns: repeat(5, 13vw);
+      grid-template-rows: repeat(6, 13vw);
+      gap: 1vw;
+      margin-bottom: 1em;
+      max-width: 95vw;
+    }
+  
+    .tile {
+      font-size: clamp(1.2em, 3.5vw, 2em);
+      border: .03em solid hsl(240, 2%, 23%);
+    }
+  
+    .keyboard {
+      grid-template-columns: repeat(22, minmax(auto, 1fr));
+      grid-auto-rows: 2.5em;
+      gap: .18em;
+      width: 95vw;
+      max-width: 500px;
+    }
+  
+    .key {
+      font-size: clamp(0.6em, 2vw, 0.85em);
+      border-radius: .15em;
+      padding: 0 .1em;
+    }
+  
+    .key > svg {
+      width: 1.2em;
+      height: 1.2em;
+    }
+  
+    .alert {
+      padding: .5em .7em;
+      font-size: clamp(0.8em, 2.5vw, 1em);
+    }
+    
+    .alert-container {
+      top: 3vh;
+      width: 90vw;
+    }
+  }
+  
+  /* Extra small phones */
+  @media (max-width: 360px) {
+    body {
+      padding: 0.2em;
       font-size: clamp(.35rem, 1.8vmin, 0.9rem);
     }
   
+    .guess-grid {
+      grid-template-columns: repeat(5, 12vw);
+      grid-template-rows: repeat(6, 12vw);
+      gap: 0.8vw;
+      margin-bottom: 0.8em;
+    }
+  
+    .tile {
+      font-size: clamp(1em, 3vw, 1.8em);
+    }
+  
+    .keyboard {
+      grid-auto-rows: 2.2em;
+      gap: .15em;
+      width: 98vw;
+    }
+  
+    .key {
+      font-size: clamp(0.55em, 1.8vw, 0.75em);
+    }
+  }
+  
+  /* Landscape orientation for mobile */
+  @media (max-height: 600px) and (orientation: landscape) {
+    body {
+      padding: 0.2em;
+    }
+    
     .guess-grid {
       grid-template-columns: repeat(5, 2.5em);
       grid-template-rows: repeat(6, 2.5em);
@@ -268,24 +346,12 @@
     }
   
     .keyboard {
-      grid-template-columns: repeat(22, minmax(auto, 0.9em));
-      grid-auto-rows: 2.2em;
+      grid-auto-rows: 2em;
       gap: .15em;
     }
-  
-    .key {
-      font-size: 0.75em;
-      border-radius: .15em;
-    }
-  
-    .key > svg {
-      width: 1.3em;
-      height: 1.3em;
-    }
-  
-    .alert {
-      padding: .5em;
-      font-size: 0.9em;
+    
+    .alert-container {
+      top: 2vh;
     }
   }
   
