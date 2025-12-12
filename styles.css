@@ -1,362 +1,330 @@
+/* ========================================
+   BASE STYLES
+   ======================================== */
 *, *::after, *::before {
-    box-sizing: border-box;
-    font-family: Arial;
-  }
-  
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: hsl(240, 3%, 7%);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0.5em;
+  font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
+  overflow-x: hidden;
+}
+
+/* ========================================
+   GUESS GRID
+   ======================================== */
+.guess-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, min(62px, 18vw));
+  grid-template-rows: repeat(6, min(62px, 18vw));
+  gap: 5px;
+  margin-bottom: 0.5em;
+  padding: 10px;
+}
+
+.tile {
+  font-size: 2em;
+  color: white;
+  border: 0.05em solid hsl(240, 2%, 23%);
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: transform 250ms linear;
+}
+
+.tile[data-state="active"] {
+  border-color: hsl(200, 1%, 34%);
+}
+
+.tile[data-state="wrong"] {
+  border: none;
+  background-color: hsl(240, 2%, 23%);
+}
+
+.tile[data-state="wrong-location"] {
+  border: none;
+  background-color: hsl(49, 51%, 47%);
+}
+
+.tile[data-state="correct"] {
+  border: none;
+  background-color: hsl(115, 29%, 43%);
+}
+
+.tile.shake {
+  animation: shake 250ms ease-in-out;
+}
+
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
+.tile.flip {
+  transform: rotateX(90deg);
+}
+
+/* ========================================
+   KEYBOARD
+   ======================================== */
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(22, minmax(auto, 1.12em));
+  grid-auto-rows: 3em;
+  gap: 0.25em;
+  justify-content: center;
+}
+
+.key {
+  font-size: inherit;
+  grid-column: span 2;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(
+    var(--hue, 200),
+    var(--saturation, 1%),
+    calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
+  );
+  color: white;
+  fill: white;
+  text-transform: uppercase;
+  border-radius: 0.25em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.key.large {
+  grid-column: span 3;
+}
+
+.key > svg {
+  width: 1.75em;
+  height: 1.75em;
+}
+
+.key:hover, .key:focus {
+  --lightness-offset: 10%;
+}
+
+.key.wrong {
+  --lightness: 23%;
+}
+
+.key.wrong-location {
+  --hue: 49;
+  --saturation: 51%;
+  --lightness: 47%;
+}
+
+.key.correct {
+  --hue: 115;
+  --saturation: 29%;
+  --lightness: 43%;
+}
+
+.space {
+  grid-column: span 1;
+}
+
+/* ========================================
+   ALERTS
+   ======================================== */
+.alert-container {
+  position: fixed;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw;
+}
+
+.alert {
+  pointer-events: none;
+  background-color: hsl(204, 7%, 85%);
+  padding: 0.75em;
+  border-radius: 0.25em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.alert:last-child {
+  margin-bottom: 0;
+}
+
+.alert.hide {
+  opacity: 0;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes shake {
+  10% { transform: translateX(-5%); }
+  30% { transform: translateX(5%); }
+  50% { transform: translateX(-7.5%); }
+  70% { transform: translateX(7.5%); }
+  90% { transform: translateX(-5%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes dance {
+  20% { transform: translateY(-50%); }
+  40% { transform: translateY(5%); }
+  60% { transform: translateY(-25%); }
+  80% { transform: translateY(2.5%); }
+  90% { transform: translateY(-5%); }
+  100% { transform: translateY(0); }
+}
+
+/* ========================================
+   MOBILE & RESPONSIVE (All devices)
+   ======================================== */
+@media (max-width: 768px) {
   body {
-    background-color: hsl(240, 3%, 7%);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 1em;
-    font-size: clamp(.5rem, 2.5vmin, 1.5rem);
+    padding: 0.3em;
+    font-size: clamp(0.5rem, 2vmin, 1rem);
   }
-  
-  .keyboard {
-    display: grid;
-    grid-template-columns: repeat(22, minmax(auto, 1.12em));
-    grid-auto-rows: 3em;
-    gap: .25em;
-    justify-content: center;
-  }
-  
-  .key {
-    font-size: inherit;
-    grid-column: span 2;
-    border: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: hsl(
-      var(--hue, 200),
-      var(--saturation, 1%),
-      calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
-    );
-    color: white;
-    fill: white;
-    text-transform: uppercase;
-    border-radius: .25em;
-    cursor: pointer;
-    user-select: none;
-  }
-  
-  .key.large {
-    grid-column: span 3;
-  }
-  
-  .key > svg {
-    width: 1.75em;
-    height: 1.75em;
-  }
-  
-  .key:hover, .key:focus {
-    --lightness-offset: 10%;
-  }
-  
-  .key.wrong {
-    --lightness: 23%;
-  }
-  
-  .key.wrong-location {
-    --hue: 49;
-    --saturation: 51%;
-    --lightness: 47%;
-  }
-  
-  .key.correct {
-    --hue: 115;
-    --saturation: 29%;
-    --lightness: 43%;
-  }
-  
+
   .guess-grid {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    flex-grow: 1;
-    grid-template-columns: repeat(5, 4em);
-    grid-template-rows: repeat(6, 4em);
-    gap: .25em;
-    margin-bottom: 1em;
+    grid-template-columns: repeat(5, min(62px, 18vw));
+    grid-template-rows: repeat(6, min(62px, 18vw));
+    gap: 5px;
+    margin-bottom: 0.5em;
+    padding: 5px;
   }
-  
+
   .tile {
-    font-size: 2em;
-    color: white;
-    border: .05em solid hsl(240, 2%, 23%);
-    text-transform: uppercase;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    transition: transform 250ms linear;
+    font-size: clamp(1.5em, 5vw, 2em);
+    border-width: 0.04em;
   }
-  
-  .tile[data-state="active"] {
-    border-color: hsl(200, 1%, 34%);
+
+  .keyboard {
+    grid-template-columns: repeat(22, minmax(auto, 1fr));
+    grid-auto-rows: min(58px, 13vw);
+    gap: 6px;
+    max-width: 100%;
+    padding: 0 8px;
   }
-  
-  .tile[data-state="wrong"] {
-    border: none;
-    background-color: hsl(240, 2%, 23%);
+
+  .key {
+    font-size: clamp(0.75em, 2.5vw, 1em);
+    border-radius: 4px;
   }
-  
-  .tile[data-state="wrong-location"] {
-    border: none;
-    background-color: hsl(49, 51%, 47%);
+
+  .key > svg {
+    width: 1.2em;
+    height: 1.2em;
   }
-  
-  .tile[data-state="correct"] {
-    border: none;
-    background-color: hsl(115, 29%, 43%);
-  }
-  
-  .tile.shake {
-    animation: shake 250ms ease-in-out;
-  }
-  
-  .tile.dance {
-    animation: dance 500ms ease-in-out;
-  }
-  
-  .tile.flip {
-    transform: rotateX(90deg);
-  }
-  
-  @keyframes shake {
-    10% {
-      transform: translateX(-5%);
-    }
-  
-    30% {
-      transform: translateX(5%);
-    }
-  
-    50% {
-      transform: translateX(-7.5%);
-    }
-  
-    70% {
-      transform: translateX(7.5%);
-    }
-  
-    90% {
-      transform: translateX(-5%);
-    }
-  
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes dance {
-    20% {
-      transform: translateY(-50%);
-    }  
-  
-    40% {
-      transform: translateY(5%);
-    }  
-  
-    60% {
-      transform: translateY(-25%);
-    }  
-  
-    80% {
-      transform: translateY(2.5%);
-    }  
-  
-    90% {
-      transform: translateY(-5%);
-    }  
-  
-    100% {
-      transform: translateY(0);
-    }
-  }
-  
+
   .alert-container {
-    position: fixed;
     top: 10vh;
-    left: 50vw;
-    transform: translateX(-50%);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
-  
+
   .alert {
-    pointer-events: none;
-    background-color: hsl(204, 7%, 85%);
-    padding: .75em;
-    border-radius: .25em;
-    opacity: 1;
-    transition: opacity 500ms ease-in-out;
-    margin-bottom: .5em;
+    font-size: clamp(0.85em, 2.5vw, 1em);
+    padding: 0.7em 1em;
   }
-  
-  .alert:last-child {
-    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .guess-grid {
+    grid-template-columns: repeat(5, min(58px, 17vw));
+    grid-template-rows: repeat(6, min(58px, 17vw));
   }
-  
-  .alert.hide {
-    opacity: 0;
+
+  .keyboard {
+    grid-auto-rows: min(54px, 12vw);
+    gap: 5px;
   }
-  
-  .space {
-    grid-column: span 1;
+}
+
+@media (max-width: 360px) {
+  .guess-grid {
+    grid-template-columns: repeat(5, min(55px, 16vw));
+    grid-template-rows: repeat(6, min(55px, 16vw));
+    gap: 4px;
   }
-  
-  /* Mobile Responsive Design */
-  @media (max-width: 768px) and (min-width: 481px) {
-    body {
-      padding: 0.5em;
-      font-size: clamp(.45rem, 2.2vmin, 1.1rem);
-    }
-  
-    .guess-grid {
-      grid-template-columns: repeat(5, 3.5em);
-      grid-template-rows: repeat(6, 3.5em);
-      gap: .25em;
-      margin-bottom: 0.8em;
-    }
-  
-    .tile {
-      font-size: 1.8em;
-    }
-  
-    .keyboard {
-      grid-template-columns: repeat(22, minmax(auto, 1.05em));
-      grid-auto-rows: 2.8em;
-      gap: .22em;
-    }
-  
-    .key {
-      font-size: 0.9em;
-      border-radius: .2em;
-    }
-  
-    .key > svg {
-      width: 1.6em;
-      height: 1.6em;
-    }
-  
-    .alert-container {
-      top: 5vh;
-    }
+
+  .keyboard {
+    grid-auto-rows: min(50px, 11vw);
+    gap: 4px;
+    padding: 0 4px;
   }
-  
-  @media (max-width: 480px) {
-    body {
-      padding: 0.5em 0.3em;
-      font-size: clamp(.5rem, 2.3vmin, 1.2rem);
-    }
-  
-    .guess-grid {
-      grid-template-columns: repeat(5, 17vw);
-      grid-template-rows: repeat(6, 17vw);
-      gap: 1vw;
-      margin-bottom: 1.5em;
-      max-width: 95vw;
-    }
-  
-    .tile {
-      font-size: clamp(1.6em, 4.2vw, 2.3em);
-      border: .04em solid hsl(240, 2%, 23%);
-    }
-  
-    .keyboard {
-      grid-template-columns: repeat(22, minmax(auto, 1fr));
-      grid-auto-rows: 3.2em;
-      gap: .22em;
-      width: 96vw;
-      max-width: 500px;
-    }
-  
-    .key {
-      font-size: clamp(0.7em, 2.4vw, 0.95em);
-      border-radius: .2em;
-      padding: 0 .2em;
-    }
-  
-    .key > svg {
-      width: 1.4em;
-      height: 1.4em;
-    }
-  
-    .alert {
-      padding: .6em .8em;
-      font-size: clamp(0.9em, 3vw, 1.15em);
-    }
-    
-    .alert-container {
-      top: 3vh;
-      width: 90vw;
-    }
+
+  .key {
+    font-size: clamp(0.7em, 2.3vw, 0.9em);
   }
-  
-  /* Extra small phones */
-  @media (max-width: 360px) {
-    body {
-      padding: 0.4em 0.2em;
-      font-size: clamp(.45rem, 2.1vmin, 1.05rem);
-    }
-  
-    .guess-grid {
-      grid-template-columns: repeat(5, 16vw);
-      grid-template-rows: repeat(6, 16vw);
-      gap: 1vw;
-      margin-bottom: 1.2em;
-    }
-  
-    .tile {
-      font-size: clamp(1.4em, 3.8vw, 2.1em);
-    }
-  
-    .keyboard {
-      grid-auto-rows: 2.8em;
-      gap: .2em;
-      width: 98vw;
-    }
-  
-    .key {
-      font-size: clamp(0.65em, 2.2vw, 0.85em);
-    }
+}
+
+/* ========================================
+   LANDSCAPE MODE (Mobile)
+   ======================================== */
+@media (max-height: 600px) and (orientation: landscape) {
+  body {
+    padding: 0.3em;
   }
-  
-  /* Landscape orientation for mobile */
-  @media (max-height: 600px) and (orientation: landscape) {
-    body {
-      padding: 0.2em;
-    }
-    
-    .guess-grid {
-      grid-template-columns: repeat(5, 2.5em);
-      grid-template-rows: repeat(6, 2.5em);
-      gap: .15em;
-      margin-bottom: 0.5em;
-    }
-  
-    .tile {
-      font-size: 1.2em;
-    }
-  
-    .keyboard {
-      grid-auto-rows: 2em;
-      gap: .15em;
-    }
-    
-    .alert-container {
-      top: 2vh;
-    }
+
+  .guess-grid {
+    grid-template-columns: repeat(5, 8vh);
+    grid-template-rows: repeat(6, 8vh);
+    gap: 0.5vh;
+    margin-bottom: 0.5em;
   }
-  
-  /* Prevent text selection on mobile */
-  * {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
+
+  .tile {
+    font-size: clamp(1em, 2.5vh, 1.5em);
   }
+
+  .keyboard {
+    grid-auto-rows: 2.5em;
+    gap: 0.15em;
+  }
+
+  .key {
+    font-size: clamp(0.6em, 1.8vw, 0.8em);
+  }
+
+  .alert-container {
+    top: 2vh;
+  }
+}
+
+/* ========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ======================================== */
+@media (hover: none) and (pointer: coarse) {
+  .key {
+    min-height: 44px;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
