@@ -1,5 +1,5 @@
 /* ==========================================
-   WORDLE TÜRKÇE - TEMIZ VE OPTİMİZE CSS
+   WORDLE TÜRKÇE - RESPONSIVE CSS
    ========================================== */
 
 *, *::after, *::before {
@@ -16,23 +16,24 @@ body {
   height: 100vh;
   height: 100dvh;
   margin: 0;
-  padding: 1em;
+  padding: 0;
   font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
   overflow: hidden;
 }
 
 /* ==========================================
-   GUESS GRID - ORTA ALAN
+   GUESS GRID
    ========================================== */
 .guess-grid {
   display: grid;
   justify-content: center;
   align-content: center;
-  flex-grow: 1;
+  flex: 1 1 auto;
   grid-template-columns: repeat(5, 4em);
   grid-template-rows: repeat(6, 4em);
   gap: 0.25em;
-  margin-bottom: 1em;
+  padding: 0.5em;
+  min-height: 0;
 }
 
 .tile {
@@ -80,7 +81,7 @@ body {
 }
 
 /* ==========================================
-   KLAVYE - ALT ALAN
+   KLAVYE
    ========================================== */
 .keyboard {
   display: grid;
@@ -88,6 +89,9 @@ body {
   grid-auto-rows: 3em;
   gap: 0.25em;
   justify-content: center;
+  flex: 0 0 auto;
+  padding: 0.5em;
+  overflow-x: visible;
 }
 
 .key {
@@ -200,39 +204,40 @@ body {
 }
 
 /* ==========================================
-   MOBİL RESPONSIVE - TEK BREAKPOINT
+   MOBİL RESPONSIVE
    ========================================== */
 @media (max-width: 768px) {
   body {
-    padding: 0.5em;
-    font-size: clamp(0.6rem, 2vmin, 1rem);
+    padding: 0;
   }
 
   .guess-grid {
-    grid-template-columns: repeat(5, min(62px, 15vw));
-    grid-template-rows: repeat(6, min(62px, 15vw));
-    gap: min(5px, 1vw);
-    margin-bottom: 1em;
+    grid-template-columns: repeat(5, 12vw);
+    grid-template-rows: repeat(6, 12vw);
+    gap: 1vw;
+    padding: 0.5em;
+    flex: 1 1 auto;
   }
 
   .tile {
-    font-size: clamp(1.3em, 3.8vw, 2em);
+    font-size: clamp(1.2em, 3vw, 1.8em);
   }
 
   .keyboard {
     grid-template-columns: repeat(22, minmax(auto, 1fr));
-    grid-auto-rows: min(58px, 3em);
-    gap: min(6px, 0.25em);
-    width: 100%;
+    grid-auto-rows: 2.5em;
+    gap: 0.2em;
+    padding: 0.4em;
+    flex: 0 0 auto;
   }
 
   .key {
-    font-size: clamp(0.7em, 2.2vw, 0.9em);
+    font-size: clamp(0.6em, 1.8vw, 0.85em);
   }
 
   .key > svg {
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.1em;
+    height: 1.1em;
   }
 
   .alert-container {
@@ -240,32 +245,57 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .guess-grid {
+    grid-template-columns: repeat(5, 14vw);
+    grid-template-rows: repeat(6, 14vw);
+    gap: 0.8vw;
+  }
+
+  .tile {
+    font-size: clamp(1em, 3vw, 1.7em);
+  }
+
+  .keyboard {
+    grid-auto-rows: 2.3em;
+    gap: 0.18em;
+  }
+
+  .key {
+    font-size: clamp(0.55em, 1.6vw, 0.8em);
+  }
+}
+
 /* ==========================================
-   LANDSCAPE MOD (Yatay Ekran)
+   LANDSCAPE MOD
    ========================================== */
 @media (max-height: 600px) and (orientation: landscape) {
   body {
+    flex-direction: row;
     padding: 0.3em;
   }
 
   .guess-grid {
-    grid-template-columns: repeat(5, 7.5vh);
-    grid-template-rows: repeat(6, 7.5vh);
-    gap: 0.5vh;
-    margin-bottom: 0.5em;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(5, 6vh);
+    grid-template-rows: repeat(6, 6vh);
+    gap: 0.4vh;
+    padding: 0.3em;
   }
 
   .tile {
-    font-size: clamp(1em, 2.5vh, 1.5em);
+    font-size: clamp(0.8em, 2vh, 1.2em);
   }
 
   .keyboard {
-    grid-auto-rows: 2.5em;
-    gap: 0.2em;
+    flex: 0 0 auto;
+    grid-auto-rows: 2em;
+    gap: 0.15em;
+    padding: 0.3em;
   }
 
   .key {
-    font-size: clamp(0.6em, 1.8vw, 0.8em);
+    font-size: clamp(0.5em, 1.5vw, 0.7em);
   }
 
   .alert-container {
