@@ -35,6 +35,7 @@
   let locked = false;
 
   let board = Array.from({ length: ROWS }, () => Array(COLS).fill(""));
+  const cheatHold = new Set();
 
   let stats = loadStats();
   renderStats();
@@ -400,12 +401,43 @@
     });
   }
 
+  // Mobile test shortcut: hold ğ and Sil together to show answer
+  function wireCheatCombo() {
+    if (!elKbd) return;
+
+    const onDown = (ev) => {
+      const btn = ev.target?.closest?.(".key");
+      if (!btn) return;
+      const k = btn.dataset.key;
+      if (!k) return;
+      cheatHold.add(k);
+      if (cheatHold.has("back") && cheatHold.has("ğ") && answer) {
+        showToast(`DEV: ${trUpper(answer)}`, 2200);
+        console.log("DEV ANSWER:", answer);
+      }
+    };
+
+    const onUp = (ev) => {
+      const btn = ev.target?.closest?.(".key");
+      if (!btn) return;
+      const k = btn.dataset.key;
+      if (!k) return;
+      cheatHold.delete(k);
+    };
+
+    elKbd.addEventListener("pointerdown", onDown);
+    elKbd.addEventListener("pointerup", onUp);
+    elKbd.addEventListener("pointercancel", onUp);
+    elKbd.addEventListener("pointerleave", onUp);
+  }
+
   function init() {
     dict = normalizeWordList(window.TR_WORDS_5 || []);
     dictSet = new Set(dict);
 
     buildBoard();
     buildKeyboard();
+    wireCheatCombo();
     wireEvents();
 
     resetRound();
